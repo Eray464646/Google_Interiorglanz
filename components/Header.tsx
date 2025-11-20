@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone, MapPin } from 'lucide-react';
 
+const logoSrc = "/public/pictures/logo.png";
+
 export const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [logoError, setLogoError] = useState(false);
-
-  // Direct path to the logo in the public/root directory
-  const logoSrc = "/logo.png";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,35 +27,14 @@ export const Header: React.FC = () => {
     <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-black/90 backdrop-blur-md shadow-lg py-3' : 'bg-transparent py-6'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
-          {/* Logo Section with Fallback */}
+          {/* Logo Section */}
           <div className="flex-shrink-0 flex items-center cursor-pointer">
-            <a href="#" className="block">
-              {!logoError ? (
-                <img 
-                  src={logoSrc} 
-                  alt="InteriorGlanz Mobile Autoreinigung Nürnberg" 
-                  className="h-12 md:h-16 w-auto object-contain transition-transform duration-300 hover:scale-105"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    // Try logo.png.png fallback just in case user file naming issue persists
-                    if (target.src.endsWith('/logo.png')) {
-                      target.src = '/logo.png.png';
-                    } else {
-                      setLogoError(true);
-                    }
-                  }}
-                />
-              ) : (
-                /* Fallback Text Logo if Image is missing */
-                <div className="flex flex-col">
-                  <span className={`font-sans text-2xl md:text-3xl font-extrabold tracking-tighter ${scrolled ? 'text-white' : 'text-white'}`}>
-                    INTERIOR<span className="text-brand-gold">GLANZ</span>
-                  </span>
-                  <span className="text-[10px] md:text-xs tracking-[0.2em] text-gray-400 uppercase font-medium">
-                    Mobile Autopflege
-                  </span>
-                </div>
-              )}
+            <a href="#home" className="block">
+              <img 
+                src={logoSrc}
+                alt="InteriorGlanz Logo"
+                className="h-12 md:h-16 w-auto object-contain transition-transform duration-300 hover:scale-105"
+              />
             </a>
           </div>
           
