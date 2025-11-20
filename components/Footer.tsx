@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CONTACT_INFO } from '../constants';
 import { Facebook, Instagram } from 'lucide-react';
 
 export const Footer: React.FC = () => {
+  const [logoError, setLogoError] = useState(false);
+  // Direct path to the logo in the public/root directory
+  const logoSrc = "/logo.png";
+
   return (
     <footer className="bg-brand-900 text-white pt-16 pb-8 border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,9 +14,29 @@ export const Footer: React.FC = () => {
           
           {/* Brand & Intro */}
           <div>
-            <span className="text-2xl font-bold tracking-wider block mb-4">
-              INTERIOR<span className="text-brand-gold">GLANZ</span>
-            </span>
+            <a href="#" className="block mb-6">
+               {!logoError ? (
+                 <img 
+                   src={logoSrc} 
+                   alt="InteriorGlanz Logo" 
+                   className="h-14 w-auto object-contain"
+                   onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    if (target.src.endsWith('/logo.png')) {
+                      target.src = '/logo.png.png';
+                    } else {
+                      setLogoError(true);
+                    }
+                  }}
+                 />
+               ) : (
+                 <div className="flex flex-col">
+                    <span className="font-sans text-2xl font-extrabold tracking-tighter text-white">
+                      INTERIOR<span className="text-brand-gold">GLANZ</span>
+                    </span>
+                 </div>
+               )}
+            </a>
             <p className="text-gray-400 mb-6">
               Ihr Spezialist für professionelle Autoaufbereitung und Autoreinigung in Nürnberg. Wir bringen den Glanz zurück.
             </p>

@@ -1,26 +1,28 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { SEOProps } from '../types';
+import { FAQ_ITEMS } from '../constants';
 
 export const SEO: React.FC<SEOProps> = ({ title, description, canonicalUrl }) => {
-  const siteTitle = "InteriorGlanz Nürnberg - Premium Autoaufbereitung";
+  const siteTitle = "InteriorGlanz Nürnberg";
   // Only append site title if it's not already part of the title
   const fullTitle = title.includes('InteriorGlanz') ? title : `${title} | ${siteTitle}`;
 
-  // Enhanced Local Business Schema
-  const structuredData = {
+  // Enhanced Local Business Schema for "Autoaufbereitung Nürnberg"
+  const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "AutoBodyShop",
-    "name": "InteriorGlanz Autoaufbereitung",
+    "name": "InteriorGlanz Mobile Autoaufbereitung Nürnberg",
     "image": [
        "https://images.unsplash.com/photo-1601362840469-51e4d8d58785"
     ],
     "@id": "https://interiorglanz.de",
     "url": "https://interiorglanz.de",
-    "telephone": "+491234567890",
+    "telephone": "+491709095730",
+    "email": "info@interiorglanz.de",
+    "priceRange": "€€",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Musterstraße 1",
       "addressLocality": "Nürnberg",
       "postalCode": "90402",
       "addressCountry": "DE"
@@ -30,6 +32,20 @@ export const SEO: React.FC<SEOProps> = ({ title, description, canonicalUrl }) =>
       "latitude": 49.4521,
       "longitude": 11.0767
     },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Nürnberg"
+      },
+      {
+        "@type": "City",
+        "name": "Fürth"
+      },
+      {
+        "@type": "City",
+        "name": "Erlangen"
+      }
+    ],
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
       "dayOfWeek": [
@@ -37,21 +53,31 @@ export const SEO: React.FC<SEOProps> = ({ title, description, canonicalUrl }) =>
         "Tuesday",
         "Wednesday",
         "Thursday",
-        "Friday"
+        "Friday",
+        "Saturday"
       ],
       "opens": "08:00",
       "closes": "18:00"
     },
-    "priceRange": "$$",
     "description": description,
-    "areaServed": {
-      "@type": "City",
-      "name": "Nürnberg"
-    },
     "sameAs": [
       "https://facebook.com/interiorglanz",
       "https://instagram.com/interiorglanz"
     ]
+  };
+
+  // FAQPage Schema for better Google Rich Snippets
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": FAQ_ITEMS.map(item => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
   };
 
   return (
@@ -71,10 +97,16 @@ export const SEO: React.FC<SEOProps> = ({ title, description, canonicalUrl }) =>
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       
-      <meta name="keywords" content="Autoaufbereitung Nürnberg, Autoreinigung Nürnberg, Fahrzeugaufbereitung, Innenraumreinigung Auto, Lackpolitur Nürnberg, Keramikversiegelung Auto" />
+      <meta name="keywords" content="Autoreinigung Nürnberg, Autoaufbereitung Nürnberg, Mobile Autopflege, Innenraumreinigung Auto, Lackpolitur Nürnberg, Keramikversiegelung, Fahrzeugaufbereitung Vor Ort, Mobile Autoreinigung" />
 
+      {/* Local Business Schema */}
       <script type="application/ld+json">
-        {JSON.stringify(structuredData)}
+        {JSON.stringify(localBusinessSchema)}
+      </script>
+      
+      {/* FAQ Schema */}
+      <script type="application/ld+json">
+        {JSON.stringify(faqSchema)}
       </script>
     </Helmet>
   );

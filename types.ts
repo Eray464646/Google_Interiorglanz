@@ -11,9 +11,24 @@ export interface ServiceItem {
 export interface PricingTier {
   name: string;
   price: string;
+  originalPrice?: string; // For strike-through prices
   description: string;
   features: string[];
   recommended?: boolean;
+  duration?: string;
+}
+
+export interface AddonItem {
+  title: string;
+  price: string;
+  description: string;
+  note?: string;
+  duration?: string;
+}
+
+export interface FAQItem {
+  question: string;
+  answer: string;
 }
 
 export interface SEOProps {
