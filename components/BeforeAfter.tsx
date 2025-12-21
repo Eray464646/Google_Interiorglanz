@@ -9,28 +9,27 @@ const COMPARISONS = [
     title: "Lackaufbereitung & Glanz",
     description: "Entfernung von Grauschleier und Mikrokratzern für tiefen Spiegelglanz.",
     icon: Car,
-    // Diese Dateien müssen im Ordner "Bilder" liegen:
-    imageBefore: <img src="https://via.placeholder.com/800x600">, 
-    imageAfter: <img src="https://via.placeholder.com/800x600">
-,
+    // Diese Dateien müssen im Ordner "Bilder" liegen (z.B. lack_vorher.jpg)
+    imageBefore: "/Bilder/lack_vorher.jpg", 
+    imageAfter: "/Bilder/lack_nachher.jpg",
   },
   {
     id: 2,
     title: "Innenraum Tiefenreinigung",
     description: "Fleckenentfernung und Frische für Leder und Textil.",
     icon: Armchair,
-    // Diese Dateien müssen im Ordner "Bilder" liegen:
-    imageBefore: <img src="https://via.placeholder.com/800x600">,
-    imageAfter: <img src="https://via.placeholder.com/800x600">,
+    // Diese Dateien müssen im Ordner "Bilder" liegen (z.B. innen_vorher.jpg)
+    imageBefore: "/Bilder/innen_vorher.jpg",
+    imageAfter: "/Bilder/innen_nachher.jpg",
   },
   {
     id: 3,
     title: "Felgen & Details",
     description: "Hartnäckiger Bremsstaub und Straßenschmutz werden restlos beseitigt.",
     icon: Droplets,
-    // Diese Dateien müssen im Ordner "Bilder" liegen:
-    imageBefore: <img src="https://via.placeholder.com/800x600">,
-    imageAfter: <img src="https://via.placeholder.com/800x600">,
+    // Diese Dateien müssen im Ordner "Bilder" liegen (z.B. felgen_vorher.jpg)
+    imageBefore: "/Bilder/felgen_vorher.jpg",
+    imageAfter: "/Bilder/felgen_nachher.jpg",
   }
 ];
 
@@ -106,7 +105,7 @@ export const BeforeAfter: React.FC = () => {
   return (
     <section className="pt-24 pb-0 bg-white relative overflow-hidden">
        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full text-center opacity-[0.03] pointer-events-none select-none">
-        <span className="text-6xl md:text-[250px] font-extrabold uppercase leading-none">Effect</span>
+        <span className="text-6xl md:text-[250px] font-extrabold uppercase leading-none text-brand-950">Effect</span>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pb-24">
