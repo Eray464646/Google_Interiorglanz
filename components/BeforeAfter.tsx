@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { MoveHorizontal, Sparkles, ChevronLeft, ChevronRight, Car, Armchair, Droplets } from 'lucide-react';
+import { MoveHorizontal, ChevronLeft, ChevronRight, Car, Armchair, Droplets } from 'lucide-react';
 import { Logo } from './Logo';
 import { FadeIn } from './FadeIn';
 
@@ -9,24 +9,28 @@ const COMPARISONS = [
     title: "Lackaufbereitung & Glanz",
     description: "Entfernung von Grauschleier und Mikrokratzern für tiefen Spiegelglanz.",
     icon: Car,
-    image: "https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070&auto=format&fit=crop",
-    filterBefore: "sepia(0.2) brightness(0.6) contrast(0.8) grayscale(0.4) blur(1px)"
+    // Diese Dateien müssen im Ordner "Bilder" liegen:
+    imageBefore: <img src="https://via.placeholder.com/800x600">, 
+    imageAfter: <img src="https://via.placeholder.com/800x600">
+,
   },
   {
     id: 2,
     title: "Innenraum Tiefenreinigung",
     description: "Fleckenentfernung und Frische für Leder und Textil.",
     icon: Armchair,
-    image: "https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=2070&auto=format&fit=crop",
-    filterBefore: "sepia(0.4) brightness(0.8) contrast(0.9) saturate(0.5)"
+    // Diese Dateien müssen im Ordner "Bilder" liegen:
+    imageBefore: <img src="https://via.placeholder.com/800x600">,
+    imageAfter: <img src="https://via.placeholder.com/800x600">,
   },
   {
     id: 3,
     title: "Felgen & Details",
     description: "Hartnäckiger Bremsstaub und Straßenschmutz werden restlos beseitigt.",
     icon: Droplets,
-    image: "https://images.unsplash.com/photo-1619682817481-e994891cd1f5?q=80&w=1888&auto=format&fit=crop",
-    filterBefore: "grayscale(0.8) brightness(0.5) contrast(0.8) sepia(0.3)"
+    // Diese Dateien müssen im Ordner "Bilder" liegen:
+    imageBefore: <img src="https://via.placeholder.com/800x600">,
+    imageAfter: <img src="https://via.placeholder.com/800x600">,
   }
 ];
 
@@ -113,11 +117,12 @@ export const BeforeAfter: React.FC = () => {
               Der InteriorGlanz Effekt
             </h3>
             <p className="text-gray-500 max-w-2xl mx-auto text-base md:text-lg">
-              Verschieben Sie den Regler, um den Unterschied zu sehen.
+              Verschieben Sie den Regler, um den echten Unterschied zu sehen.
             </p>
           </div>
         </FadeIn>
 
+        {/* Kategorien Desktop */}
         <FadeIn delay={0.2}>
           <div className="hidden md:flex justify-center gap-4 mb-8">
             {COMPARISONS.map((item, idx) => (
@@ -137,6 +142,7 @@ export const BeforeAfter: React.FC = () => {
           </div>
         </FadeIn>
 
+        {/* Kategorien Mobile */}
         <div className="md:hidden flex flex-col gap-3 mb-8 px-1">
            {COMPARISONS.map((item, idx) => (
             <button
@@ -182,8 +188,9 @@ export const BeforeAfter: React.FC = () => {
 
             <div className="relative aspect-[4/3] md:aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl border-4 border-white select-none group ring-1 ring-gray-200 bg-gray-100">
               
+              {/* NACHHER BILD (Hintergrund) */}
               <img
-                src={currentSlide.image}
+                src={currentSlide.imageAfter}
                 alt={`${currentSlide.title} Nachher`}
                 className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
                 draggable={false}
@@ -191,28 +198,29 @@ export const BeforeAfter: React.FC = () => {
               
               <div className="absolute top-6 right-6 bg-brand-gold px-3 py-1.5 md:px-4 md:py-2 rounded-sm shadow-lg z-20 flex items-center gap-2">
                 <Logo className="h-4 md:h-6 w-auto" />
-                <span className="text-brand-950 font-bold text-xs md:text-sm tracking-wider">NACHHER</span>
+                <span className="text-brand-950 font-bold text-xs md:text-sm tracking-wider uppercase">Nachher</span>
               </div>
 
+              {/* VORHER BILD (Vordergrund mit Clipping) */}
               <div
-                className="absolute inset-0 h-full overflow-hidden bg-gray-800 border-r-2 border-white"
+                className="absolute inset-0 h-full overflow-hidden border-r-2 border-white/50"
                 style={{ width: `${position}%` }}
               >
                 <img
-                  src={currentSlide.image}
+                  src={currentSlide.imageBefore}
                   alt={`${currentSlide.title} Vorher`}
                   className="absolute top-0 left-0 h-full max-w-none object-cover"
                   style={{ 
                     width: containerWidth || '100%',
-                    filter: currentSlide.filterBefore 
                   }}
                   draggable={false}
                 />
-                <div className="absolute top-6 left-6 bg-white/90 text-gray-900 px-3 py-1.5 md:px-4 md:py-2 font-bold rounded-sm shadow-lg backdrop-blur-sm text-xs md:text-sm tracking-wider">
-                  VORHER
+                <div className="absolute top-6 left-6 bg-black/60 text-white px-3 py-1.5 md:px-4 md:py-2 font-bold rounded-sm shadow-lg backdrop-blur-sm text-xs md:text-sm tracking-wider uppercase">
+                  Vorher
                 </div>
               </div>
 
+              {/* Slider Handle */}
               <div
                 ref={containerRef}
                 className="absolute inset-0 w-full h-full cursor-ew-resize z-30 touch-none"
@@ -220,7 +228,7 @@ export const BeforeAfter: React.FC = () => {
                 onTouchStart={handleTouchStart}
               >
                 <div
-                  className="absolute top-0 bottom-0 w-1 bg-brand-gold shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+                  className="absolute top-0 bottom-0 w-1 bg-brand-gold shadow-[0_0_15px_rgba(255,215,0,0.8)]"
                   style={{ left: `${position}%` }}
                 >
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-brand-gold rounded-full flex items-center justify-center shadow-xl border-4 border-white transition-transform transform hover:scale-110 active:scale-95">
@@ -230,6 +238,7 @@ export const BeforeAfter: React.FC = () => {
               </div>
             </div>
 
+            {/* Slide Info Card */}
             <div className="mt-6 bg-white p-6 rounded-xl shadow-lg border border-gray-100 flex flex-col md:flex-row items-center justify-between gap-4 transition-all duration-300">
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-brand-gold/20 rounded-lg text-brand-950">
