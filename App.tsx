@@ -8,6 +8,7 @@ import { Pricing } from './components/Pricing';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { BeforeAfter } from './components/BeforeAfter';
+import { HowItWorks } from './components/HowItWorks';
 import { FAQ } from './components/FAQ';
 
 const App: React.FC = () => {
@@ -22,12 +23,14 @@ const App: React.FC = () => {
       
       <main className="flex-grow">
         <Hero />
+        {/* Interactive Before/After Comparison - Now between Hero and Pricing */}
+        <BeforeAfter />
+        {/* How It Works - The Logistics Solver */}
+        <HowItWorks />
         {/* Pricing Section with Light Background */}
         <Pricing />
         {/* Services Section with Yellow Banner at the top */}
         <Services />
-        {/* Interactive Before/After Comparison */}
-        <BeforeAfter />
         <About />
         <FAQ />
         <Contact />
